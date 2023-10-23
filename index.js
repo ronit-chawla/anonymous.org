@@ -1,6 +1,9 @@
 // Require Statements
 const express = require('express');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
+const path = require('path');
+const methodOverride = require('method-override');
 
 const routes = require('./routes');
 const Rant = require('./models/Rant');
@@ -11,18 +14,13 @@ const app = express();
 
 // JSSON Parser and Headers
 app.use(express.json());
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PUT, DELETE'
-  );
-  next();
-});
+app.engine('ejs', ejsMate);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const filterRants = async (req, res, next) => {
   const rants = await Rant.find();

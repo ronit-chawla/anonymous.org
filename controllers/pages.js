@@ -1,9 +1,30 @@
-exports.home = async (req, res, next) => {};
+const Rant = require('../models/Rant');
+const Affirmation = require('../models/Affirmation');
 
-exports.rant = async (req, res, next) => {};
+exports.home = async (req, res, next) => {
+  res.render('home');
+};
 
-exports.affirmation = async (req, res, next) => {};
+exports.rant = async (req, res, next) => {
+  let rants;
+  try {
+    rants = await Rant.find();
+  } catch (err) {}
+  res.render('rants', { rants });
+};
 
-exports.specialist = async (req, res, next) => {};
+exports.affirmation = async (req, res, next) => {
+  let affirmations;
+  try {
+    affirmations = await Affirmation.find();
+  } catch (err) {}
+  res.render('affirmations', { affirmations });
+};
 
-exports.community = async (req, res, next) => {};
+exports.specialist = async (req, res, next) => {
+  res.render('specialist');
+};
+
+exports.community = async (req, res, next) => {
+  res.render('community');
+};
