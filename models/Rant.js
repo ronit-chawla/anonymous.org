@@ -15,6 +15,10 @@ const rantSchema = new Schema({
     type    : String,
     default : 'UserUnknown',
   },
+  date  : {
+    type     : Date,
+    required : true,
+  },
 });
 
 rantSchema.set('toJSON', { getters: true });

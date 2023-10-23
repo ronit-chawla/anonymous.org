@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const routes = require('./routes');
+const Rant = require('./models/Rant');
 
 const mongoURL =
   'mongodb+srv://ronit_c:Fue5C7P5VUieBqHl@tourcamp.alpnh.mongodb.net/anonymous-org?retryWrites=true&w=majority';
@@ -23,7 +24,17 @@ app.use((req, res, next) => {
   next();
 });
 
+const filterRants = async (req, res, next) => {
+  const rants = await Rant.find();
+  const oldRants = rants.filter(r => r.date.getDate() > 0);
+  for (const rant of oldRants) {
+    await rant.remove();
+  }
+  next();
+};
+
 // ROUTES
+app.use(filterRants);
 app.use('/', routes);
 
 // DB Setup

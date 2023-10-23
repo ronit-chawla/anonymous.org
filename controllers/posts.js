@@ -3,7 +3,7 @@ const Affirmation = require('../models/Affirmation');
 
 exports.createRant = async (req, res, next) => {
   const { rant: rantInfo } = req.body;
-  const rant = new Rant({ ...rantInfo });
+  const rant = new Rant({ ...rantInfo, date: new Date() });
   try {
     await rant.save();
   } catch (err) {}
