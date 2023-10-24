@@ -1,5 +1,6 @@
 const Rant = require('../models/Rant');
 const Affirmation = require('../models/Affirmation');
+const Story = require('../models/Story');
 
 exports.createRant = async (req, res, next) => {
   const { rant: rantInfo } = req.body;
@@ -19,4 +20,15 @@ exports.createAffirmation = async (req, res, next) => {
     await affirmation.save();
   } catch (err) {}
   res.redirect('/affirmations');
+};
+
+exports.createStory = async (req, res, next) => {
+  const { story: storyInfo } = req.body;
+  const story = new Story({
+    ...storyInfo,
+  });
+  try {
+    await story.save();
+  } catch (err) {}
+  res.redirect('/stories');
 };
