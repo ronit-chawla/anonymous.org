@@ -1,14 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>stories.anonymous</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="rant.css">
 </head>
 
 <body>
-  <h1>STORIES</h1>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">anonymous.org</a>
+      <button class=" navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item nav-item-right">
+            <a class="nav-link" href="/stories">Stories</a>
+          </li>
+          <li class="nav-item nav-item-right">
+            <a class="nav-link" href="/rants">Rants</a>
+          </li>
+          <li class="nav-item nav-item-right">
+            <a class="nav-link" href="/affirmations">Affirmations</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col">
+        <div class="container d-flex flex-wrap">
+          <% stories.forEach(s=> { %>
+
+            <div class="card my-2 mx-1" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <figure>
+                    <blockquote class="blockquote">
+                      <p>
+                        <%= s.quote %>
+                      </p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                      <cite title="Source Title">
+                        <%=s.user?s.user:'UserUnknown' %>
+                      </cite>
+                    </figcaption>
+                  </figure>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  <%= s.title %>
+                </h6>
+                <p class="card-text">
+                  <%= s.story%>
+                </p>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+      </div>
+      <div class="col">
+        <h4 class="display-4 text-light">Share your inspirational story</h4>
+        <form action="/story" method="post">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label text-light">Title</label>
+            <input required type="text" class="form-control" name="title">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label text-light">Penname(optional)</label>
+            <input type="text" class="form-control" name="user">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label text-light">Quote or a phrase that keeps you
+              going</label>
+            <input type="text" class="form-control" name="quote">
+          </div>
+          <div class="form-floating mb-3">
+            <textarea class="form-control" placeholder="Rant" id="floatingTextarea" style="height: 100px"
+              name="story"></textarea>
+            <label for=" floatingTextarea">Story</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

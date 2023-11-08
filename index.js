@@ -22,17 +22,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const filterRants = async (req, res, next) => {
-  const rants = await Rant.find();
-  const oldRants = rants.filter(r => r.date.getDate() > 0);
-  for (const rant of oldRants) {
-    await rant.remove();
-  }
-  next();
-};
+// const filterRants = async (req, res, next) => {
+//   const rants = await Rant.find();
+//   const oldRants = rants.filter(
+//     r => new Date(r.date).getDate() > 0
+//   );
+//   for (const rant of oldRants) {
+//     await Rant.findByIdAndRemove(rant._id);
+//   }
+//   next();
+// };
 
 // ROUTES
-app.use(filterRants);
+// app.use(filterRants);
 app.use('/', routes);
 
 // DB Setup

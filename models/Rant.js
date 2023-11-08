@@ -16,10 +16,10 @@ const rantSchema = new Schema({
     default : 'UserUnknown',
   },
   date  : {
-    type     : Date,
+    type     : String,
     required : true,
   },
 });
 
-rantSchema.set('toJSON', { getters: true });
+// rantSchema.set('toJSON', { getters: true });
 module.exports = mongoose.model('Rant', rantSchema);

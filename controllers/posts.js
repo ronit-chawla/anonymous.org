@@ -3,29 +3,36 @@ const Affirmation = require('../models/Affirmation');
 const Story = require('../models/Story');
 
 exports.createRant = async (req, res, next) => {
-  const { rant: rantInfo } = req.body;
-  const rant = new Rant({ ...rantInfo, date: new Date() });
-  try {
-    await rant.save();
-  } catch (err) {}
+  const { rant, title, user } = req.body;
+  console.log(rant, title, user);
+  await Rant.create([
+    {
+      rant,
+      title,
+      user,
+      date  : new Date().toDateString(),
+    },
+  ]);
+  console.log('rant created');
   res.redirect('/rants');
 };
 
 exports.createAffirmation = async (req, res, next) => {
-  const { affirmation: affirmationInfo } = req.body;
-  const affirmation = new Affirmation({
-    ...affirmationInfo,
+  const { affirmation, user } = req.body;
+  const affirmation1 = new Affirmation({
+    affirmation,
+    user,
   });
   try {
-    await affirmation.save();
+    await affirmation1.save();
   } catch (err) {}
   res.redirect('/affirmations');
 };
 
 exports.createStory = async (req, res, next) => {
-  const { story: storyInfo } = req.body;
+  console.log('requests', req.body);
   const story = new Story({
-    ...storyInfo,
+    ...req.body,
   });
   try {
     await story.save();

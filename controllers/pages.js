@@ -9,8 +9,9 @@ exports.home = async (req, res, next) => {
 exports.rant = async (req, res, next) => {
   let rants;
   try {
-    rants = await Rant.find();
+    rants = await Rant.find({});
   } catch (err) {}
+  console.log(rants);
   res.render('rants', { rants });
 };
 
@@ -27,6 +28,7 @@ exports.story = async (req, res, next) => {
   try {
     stories = await Story.find();
   } catch (err) {}
+  console.log(stories);
   res.render('stories', { stories });
 };
 
